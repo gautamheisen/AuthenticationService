@@ -1,12 +1,24 @@
 package com.gautam.authenticationservice.dtos;
 
+import com.gautam.authenticationservice.models.Role;
+import com.gautam.authenticationservice.models.User;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 public class UserDto {
     private String email;
-    private String password;
-    private String fullName;
+    private Set<Role> roles = new HashSet<>();
+
+    public static UserDto from(User user) {
+        UserDto userDto = new UserDto();
+        userDto.setEmail(user.getEmail());
+        userDto.setRoles(user.getRoles());
+
+        return userDto;
+    }
 }
