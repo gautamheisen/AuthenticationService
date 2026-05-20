@@ -10,6 +10,7 @@ import com.gautam.authenticationservice.repositories.SessionRepository;
 import com.gautam.authenticationservice.repositories.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -27,13 +28,13 @@ import java.util.Optional;
 public class AuthService {
     private UserRepository userRepository;
     private SessionRepository sessionRepository;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder bCryptPasswordEncoder;
 
 
-    public AuthService(UserRepository userRepository, SessionRepository sessionRepository){
+    public AuthService(UserRepository userRepository, SessionRepository sessionRepository,PasswordEncoder passwordEncoder){
         this.userRepository = userRepository;
         this.sessionRepository = sessionRepository;
-        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        this.bCryptPasswordEncoder = passwordEncoder;;
 
     }
     public UserDto signUp(String email, String password) throws UserAlreadyExistsException {
